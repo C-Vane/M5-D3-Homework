@@ -22,11 +22,16 @@ class AllProjects extends React.Component {
     currentId: "",
     status: "",
     variant: "success",
+    searchString: "",
   };
   componentDidMount = () => {
     setTimeout(() => {
       this.getProjects();
     }, 1000);
+  };
+  //FOR THE SEARCH
+  componentDidUpdate = (prevProps) => {
+    prevProps.search !== this.props.search && this.setState({ searchString: this.props.search });
   };
   //GET ALL projects
   getProjects = async () => {

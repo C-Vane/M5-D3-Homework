@@ -153,3 +153,14 @@ router.get("/:id/projects", (req, res, next) => {
   }
 });
 module.exports = router;
+//Check if email is not used
+router.post("/checkEmail", (req, res) => {
+  try {
+    const email = req.body.email;
+    const studentsArray = readFile("students.json");
+    const checkEmail = studentsArray.some((student) => student.email === email);
+    checkEmail ? res.status(210).send(true) : res.send(false);
+  } catch (error) {
+    next(error);
+  }
+});

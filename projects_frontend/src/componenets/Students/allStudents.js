@@ -57,7 +57,7 @@ class AllStudentsMain extends React.Component {
       }, 1000);
     } else {
       this.setState({
-        status: "Error email has been used by other student",
+        status: "Error has been used by other student",
         variant: "danger",
         modal: false,
       });
@@ -123,7 +123,6 @@ class AllStudentsMain extends React.Component {
   //CHECK eMAIL
   checkemail = async (event) => {
     event.preventDefault();
-    console.log(this.state.email);
     let body = {
       email: this.state.email,
     };
@@ -143,16 +142,16 @@ class AllStudentsMain extends React.Component {
         });
         setTimeout(() => {
           this.setState({ status: "" });
-        }, 1500);
+        }, 2500);
       } else {
         this.setState({
           email: "",
-          status: "email has already been used",
+          status: "Email has already been used by other student",
           variant: "danger",
         });
         setTimeout(() => {
           this.setState({ status: "", variant: "success" });
-        }, 1500);
+        }, 2500);
       }
     } catch (error) {
       console.log(error);

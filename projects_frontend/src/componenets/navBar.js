@@ -3,6 +3,14 @@ import { Navbar, Nav, Form, Button } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 
 class NavBar extends React.Component {
+  state = {
+    search: "",
+  };
+  handleChange = (e) => this.setState({ search: e.currentTarget.value });
+  handleSearch = (e) => {
+    e.preventDefault();
+    this.props.searchResults(this.state.search);
+  };
   render() {
     return (
       <div>
@@ -22,9 +30,11 @@ class NavBar extends React.Component {
             </Nav>
 
             {this.props.location.pathname === "/projects" && (
-              <Form inline>
-                <Form.Control type='text' placeholder='Search' className='mr-sm-2' />
-                <Button variant='outline-success'>Search</Button>
+              <Form inline onSubmit={this.handleSearch}>
+                <Form.Control type='text' placeholder='Search' onInput={this.handleChange} value={this.state.search} className='mr-sm-2' />
+                <Button variant='outline-dark' type='submit'>
+                  Search
+                </Button>
               </Form>
             )}
           </Navbar.Collapse>

@@ -1,4 +1,5 @@
 import "./App.css";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AllStudentsMain from "./componenets/Students/allStudents";
 import { Route, BrowserRouter as Router } from "react-router-dom";
@@ -6,16 +7,25 @@ import NavBar from "./componenets/navBar";
 import AllProjects from "./componenets/Projects/allProjectsMain";
 
 function App() {
+  const [search, setSearch] = useState("");
+  const searchResults = (res) => {
+    setSearch(res);
+  };
+  /*   const handleSearch = async (e) => {
+    const search = await getFunction("/projects/?name=" + this.state.search);
+    this.props.searchResults(search);
+  }; */
   return (
     <div className='App'>
       <Router>
-        <NavBar />
+        <NavBar searchResults={searchResults} />
         <Route path='/students' exact>
           <AllStudentsMain />
         </Route>
         <Route path='/projects' exact>
-          <AllProjects />
+          <AllProjects seacrh={search} />
         </Route>
+
         <Route path='/projects/:id'>
           <AllProjects />
         </Route>

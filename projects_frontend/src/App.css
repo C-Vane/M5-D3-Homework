@@ -1,3 +1,10 @@
 body {
   background-color: bisque;
 }
+.alert {
+  position: absolute !important;
+  top: 50px;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+}
