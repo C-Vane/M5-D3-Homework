@@ -10,10 +10,6 @@ function App() {
   const [search, setSearch] = useState("");
   const searchResults = (res) => setSearch(res);
 
-  /*   const handleSearch = async (e) => {
-    const search = await getFunction("/projects/?name=" + this.state.search);
-    this.props.searchResults(search);
-  }; */
   return (
     <div className='App'>
       <Router>

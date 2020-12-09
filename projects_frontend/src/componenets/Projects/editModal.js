@@ -36,27 +36,27 @@ class EditModal extends React.Component {
           <Modal.Body>
             <Form.Group>
               <Form.Label>Name</Form.Label>
-              <Form.Control type='text' id='name' value={form.name} onChange={this.handelChange} />
+              <Form.Control type='text' id='name' value={form.name} onChange={this.handelChange} required />
             </Form.Group>
             <Form.Group>
               <Form.Label>Description</Form.Label>
-              <Form.Control type='text' id='description' value={form.description} onChange={this.handelChange} />
+              <Form.Control type='text' id='description' value={form.description} onChange={this.handelChange} required />
             </Form.Group>
             <Form.Group>
               <Form.Label>Student ID</Form.Label>
-              <Form.Control type='text' id='studentID' value={form.studentID} onChange={this.handelChange} />
+              <Form.Control type='text' id='studentID' value={form.studentID} onChange={this.handelChange} required />
             </Form.Group>
             <Form.Group>
               <Form.Label>Git repository Link</Form.Label>
-              <Form.Control type='URL' id='repoUrl' value={form.repoUrl} onChange={this.handelChange} />
+              <Form.Control type='URL' id='repoUrl' value={form.repoUrl} onChange={this.handelChange} required />
             </Form.Group>
             <Form.Group>
               <Form.Label>Project Link</Form.Label>
-              <Form.Control type='URL' id='liveUrl' value={form.liveUrl} onChange={this.handelChange} />
+              <Form.Control type='URL' id='liveUrl' value={form.liveUrl} onChange={this.handelChange} required />
             </Form.Group>
             <Form.Group>
               <Form.Label>Creation Date</Form.Label>
-              <Form.Control type='date' id='creationDate' value={form.creationDate} onChange={this.handelChange} />
+              <Form.Control type='date' id='creationDate' value={form.creationDate} onChange={this.handelChange} required />
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>

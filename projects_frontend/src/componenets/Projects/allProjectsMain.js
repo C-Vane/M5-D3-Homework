@@ -33,6 +33,10 @@ class AllProjects extends React.Component {
   componentDidUpdate = (prevProps) => {
     prevProps.search !== this.props.search && this.setState({ searchString: this.props.search });
   };
+  /*   const handleSearch = async (search) => {
+    const searchResults = await getFunction("/projects/?name=" + search);
+    this.setState({projects:searchResults});
+  }; */
   //GET ALL projects
   getProjects = async () => {
     let projects = this.props.match.params.id ? await getFunction("/students/" + this.props.match.params.id + "/projects") : await getFunction("/projects");
@@ -64,6 +68,18 @@ class AllProjects extends React.Component {
       setTimeout(() => {
         this.getProjects();
       }, 1000);
+    } else {
+      this.setState({
+        status: "Error wrong student ID",
+        variant: "danger",
+        modal: false,
+      });
+      setTimeout(() => {
+        this.setState({
+          status: "",
+          variant: "success",
+        });
+      }, 3000);
     }
   };
   //EDIT Project
@@ -87,6 +103,17 @@ class AllProjects extends React.Component {
       setTimeout(() => {
         this.getProjects();
       }, 1000);
+    } else {
+      this.setState({
+        status: "Error wrong student ID",
+        variant: "danger",
+      });
+      setTimeout(() => {
+        this.setState({
+          status: "",
+          variant: "success",
+        });
+      }, 3000);
     }
   };
   deleteProject = (id) => {

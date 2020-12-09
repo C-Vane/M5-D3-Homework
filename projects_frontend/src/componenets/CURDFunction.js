@@ -46,7 +46,6 @@ const putFunction = async (endp, data) => {
     }
   } catch (error) {
     console.log(error);
-    return false;
   }
 };
 const deleteFunction = async (endp) => {

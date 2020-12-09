@@ -14,8 +14,8 @@ const readFile = (fileName) => {
 // check student id
 const checkStudent = (id) => {
   const students = readFile("../students/students.json");
-  console.log(students);
   const studentExsists = students.filter((student) => student.ID === id);
+  console.log(studentExsists);
   return studentExsists.length > 0 ? false : true;
 };
 // get all projects

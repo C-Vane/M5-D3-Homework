@@ -34,19 +34,19 @@ class EditModal extends React.Component {
           <Modal.Body>
             <Form.Group>
               <Form.Label>name</Form.Label>
-              <Form.Control type='text' id='name' value={form.name} onChange={this.handelChange} />
+              <Form.Control type='text' id='name' value={form.name} onChange={this.handelChange} required />
             </Form.Group>
             <Form.Group>
               <Form.Label>surname</Form.Label>
-              <Form.Control type='text' id='surname' value={form.surname} onChange={this.handelChange} />
+              <Form.Control type='text' id='surname' value={form.surname} onChange={this.handelChange} required />
             </Form.Group>
             <Form.Group>
               <Form.Label>email</Form.Label>
-              <Form.Control type='email' id='email' value={form.email} onChange={this.handelChange} />
+              <Form.Control type='email' id='email' value={form.email} onChange={this.handelChange} required />
             </Form.Group>
             <Form.Group>
               <Form.Label>Date of Birth</Form.Label>
-              <Form.Control type='date' id='dateofBirth' value={form.dateofBirth} onChange={this.handelChange} />
+              <Form.Control type='date' id='dateofBirth' value={form.dateofBirth} onChange={this.handelChange} required />
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
