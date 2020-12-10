@@ -51,7 +51,7 @@ class AllProjects extends React.Component {
   //ADD NEW Project
   postProject = async (data) => {
     let response = await postFunction("/projects/", data);
-    if (response) {
+    if (response === true) {
       this.setState({
         form: {
           name: "",
@@ -70,7 +70,7 @@ class AllProjects extends React.Component {
       }, 1000);
     } else {
       this.setState({
-        status: "Error wrong student ID",
+        status: response.length < 30 ? response : response.split('"msg":')[1].split(",")[0],
         variant: "danger",
         modal: false,
       });
@@ -83,8 +83,9 @@ class AllProjects extends React.Component {
     }
   };
   //EDIT Project
-  putProjects = (id, data) => {
-    if (putFunction("/projects/" + id, data)) {
+  putProjects = async (id, data) => {
+    let response = await putFunction("/projects/" + id, data);
+    if (response === true) {
       this.setState({
         form: {
           name: "",
@@ -105,8 +106,9 @@ class AllProjects extends React.Component {
       }, 1000);
     } else {
       this.setState({
-        status: "Error wrong student ID",
+        status: response.length < 30 ? response : response.split('"msg":')[1].split(",")[0],
         variant: "danger",
+        modal: false,
       });
       setTimeout(() => {
         this.setState({
@@ -150,7 +152,7 @@ class AllProjects extends React.Component {
   };
 
   render() {
-    const { loaded, projects, modal, modalAdd, form } = this.state;
+    const { loaded, projects, modal, modalAdd, form, currentId } = this.state;
     return (
       <>
         <Container>
@@ -171,7 +173,7 @@ class AllProjects extends React.Component {
             </Row>
           </section>
         </Container>
-        <EditModal modal={modal} modalAdd={modalAdd} editModalToggleHandler={this.editModalToggleHandler} handelSubmit={this.handelSubmit} form={form} />
+        <EditModal modal={modal} modalAdd={modalAdd} editModalToggleHandler={this.editModalToggleHandler} handelSubmit={this.handelSubmit} form={form} currentId={currentId} />
       </>
     );
   }

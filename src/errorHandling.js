@@ -18,10 +18,17 @@ const forbiddenHandler = (err, req, res, next) => {
   }
   next(err);
 };
-
+const badRequestHandler = (err, req, res, next) => {
+  if (err.httpStatusCode === 400) {
+    console.log(err.message);
+    res.status(400).send(err.message);
+  }
+  next(err);
+};
 const catchAllHandler = (err, req, res, next) => {
   if (!res.headersSent) {
-    res.status(err.httpStatusCode || 500).send("Generic Server Error");
+    console.log(err.httpStatusCode);
+    res.status(err.httpStatusCode || 500).send("Generic Server Error" + err.messages);
   }
 };
 
@@ -29,5 +36,6 @@ module.exports = {
   notFoundHandler,
   unauthorizedHandler,
   forbiddenHandler,
+  badRequestHandler,
   catchAllHandler,
 };

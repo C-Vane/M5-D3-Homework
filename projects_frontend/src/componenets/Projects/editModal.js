@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Form, Modal } from "react-bootstrap";
+import ImageUploader from "react-images-upload";
 
 class EditModal extends React.Component {
   state = {
@@ -11,6 +12,7 @@ class EditModal extends React.Component {
       repoUrl: "",
       liveUrl: "",
     },
+    pictures: [],
   };
   componentDidMount() {
     this.setState({ form: this.props.form });
@@ -23,6 +25,32 @@ class EditModal extends React.Component {
     let currentId = e.currentTarget.id;
     form[currentId] = e.currentTarget.value;
     this.setState({ form });
+  };
+  profilePictureUploadHandler = (pictures) => this.setState({ pictures });
+  postImage = async () => {
+    let formData = new FormData();
+    this.state.pictures.forEach((file) => {
+      console.log(file);
+      formData.append("projectImage", file);
+    });
+    console.log(formData);
+
+    if (this.state.pictures.length > 0) {
+      try {
+        let response = await fetch("http://localhost:3001/projects/" + this.props.currentId + "/uploadPhotos", {
+          method: "POST",
+          body: formData,
+          redirect: "follow",
+        });
+        if (response.ok) {
+          console.log(await response.json());
+        } else {
+          console.log(await response.json());
+        }
+      } catch (er) {
+        console.log(er);
+      }
+    }
   };
   render() {
     const { modal, modalAdd, editModalToggleHandler, handelSubmit } = this.props;
@@ -58,12 +86,25 @@ class EditModal extends React.Component {
               <Form.Label>Creation Date</Form.Label>
               <Form.Control type='date' id='creationDate' value={form.creationDate} onChange={this.handelChange} required />
             </Form.Group>
+            {form.name && (
+              <ImageUploader
+                withIcon={true}
+                buttonText='Upload image'
+                imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg", ".JPG"]}
+                maxFileSize={5242880}
+                multiple={true}
+                withPreview={true}
+                withLabel={false}
+                maxNumber={10}
+                onChange={this.profilePictureUploadHandler}
+              />
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={editModalToggleHandler} variant='secondary'>
               Cancel
             </Button>
-            <Button variant='primary' type='submit'>
+            <Button variant='primary' type='submit' onClick={this.postImage}>
               Submit
             </Button>
           </Modal.Footer>

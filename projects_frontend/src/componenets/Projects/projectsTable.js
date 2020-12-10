@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Table } from "react-bootstrap";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ProjectsTable = (props) => {
   const { projects, editProject, deleteProject } = props;
@@ -40,9 +40,9 @@ const ProjectsTable = (props) => {
               <Button onClick={() => deleteProject(project.ID)} variant='danger'>
                 Delete
               </Button>
-              {/*<Link to={"/project/" + project.ID}>
+              <Link to={"/project/" + project.ID}>
                 <Button> Project Details</Button>
-        </Link>*/}
+              </Link>
             </td>
           </tr>
         ))}

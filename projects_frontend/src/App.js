@@ -5,6 +5,7 @@ import AllStudentsMain from "./componenets/Students/allStudents";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import NavBar from "./componenets/navBar";
 import AllProjects from "./componenets/Projects/allProjectsMain";
+import ProjectPage from "./componenets/ProjectDetails/ProjectPage";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -20,9 +21,11 @@ function App() {
         <Route path='/projects' exact>
           <AllProjects seacrh={search} />
         </Route>
-
         <Route path='/projects/:id'>
           <AllProjects />
+        </Route>
+        <Route path='/project/:id'>
+          <ProjectPage />
         </Route>
       </Router>
     </div>

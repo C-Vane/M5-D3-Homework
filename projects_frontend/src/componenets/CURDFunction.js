@@ -20,10 +20,9 @@ const postFunction = async (endp, data) => {
       }),
     });
     if (response.ok) {
-      console.log(response);
       return true;
     } else {
-      return false;
+      return await response.text();
     }
   } catch (error) {
     console.log(error);
@@ -41,8 +40,7 @@ const putFunction = async (endp, data) => {
     if (response.ok) {
       return true;
     } else {
-      console.log(response);
-      return false;
+      return await response.text();
     }
   } catch (error) {
     console.log(error);
@@ -54,9 +52,10 @@ const deleteFunction = async (endp) => {
       method: "DELETE",
     });
     if (response.ok) {
+      console.log(await response.text());
       return true;
     } else {
-      console.log(response);
+      console.log(await response.text());
       return false;
     }
   } catch (error) {

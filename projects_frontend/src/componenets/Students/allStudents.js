@@ -40,7 +40,8 @@ class AllStudentsMain extends React.Component {
   //ADD NEW STUDENT
   postStudent = async (data) => {
     let response = await postFunction("/students/", data);
-    if (response) {
+    if (response === true) {
+      console.log(response);
       this.setState({
         form: {
           name: "",
@@ -57,7 +58,7 @@ class AllStudentsMain extends React.Component {
       }, 1000);
     } else {
       this.setState({
-        status: "Error has been used by other student",
+        status: response.length < 30 ? response : response.split('"msg":')[1].split(",")[0],
         variant: "danger",
         modal: false,
       });
@@ -70,8 +71,9 @@ class AllStudentsMain extends React.Component {
     }
   };
   //EDIT STUDENT
-  putStudent = (id, data) => {
-    if (putFunction("/students/" + id, data)) {
+  putStudent = async (id, data) => {
+    let response = await putFunction("/students/" + id, data);
+    if (response === true) {
       this.setState({
         form: {
           name: "",
@@ -88,6 +90,18 @@ class AllStudentsMain extends React.Component {
       setTimeout(() => {
         this.getStudents();
       }, 1000);
+    } else {
+      this.setState({
+        status: response.length < 30 ? response : response.split('"msg":')[1].split(",")[0],
+        variant: "danger",
+        modal: false,
+      });
+      setTimeout(() => {
+        this.setState({
+          status: "",
+          variant: "success",
+        });
+      }, 3000);
     }
   };
   deleteStudent = (id) => {
@@ -135,7 +149,7 @@ class AllStudentsMain extends React.Component {
         }),
       });
 
-      if (response.status !== 210) {
+      if (response.ok && (await response.text()) === "false") {
         this.setState({
           email: "",
           status: "No other student has this email",
@@ -159,7 +173,7 @@ class AllStudentsMain extends React.Component {
   };
   handelChange = (e) => this.setState({ email: e.currentTarget.value });
   render() {
-    const { loaded, students, modal, modalAdd, form } = this.state;
+    const { loaded, students, modal, modalAdd, form, currentId } = this.state;
     return (
       <>
         <Container>
@@ -190,7 +204,7 @@ class AllStudentsMain extends React.Component {
             </Form>
           </div>
         </Container>
-        <EditModal modal={modal} modalAdd={modalAdd} editModalToggleHandler={this.editModalToggleHandler} handelSubmit={this.handelSubmit} form={form} />
+        <EditModal modal={modal} modalAdd={modalAdd} editModalToggleHandler={this.editModalToggleHandler} handelSubmit={this.handelSubmit} form={form} currentId={currentId} />
       </>
     );
   }

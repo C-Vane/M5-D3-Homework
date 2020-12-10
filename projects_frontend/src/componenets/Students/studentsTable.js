@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button, Image, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const StudentsTable = (props) => {
@@ -19,7 +19,9 @@ const StudentsTable = (props) => {
       <tbody>
         {students.map((student, i) => (
           <tr key={i}>
-            <td>{i + 1}</td>
+            <td>
+              {i + 1} <Image src={student.image ? student.image : "https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg"} height='30px' />
+            </td>
             <td>{student.name}</td>
             <td>{student.surname}</td>
             <td>{student.email}</td>
